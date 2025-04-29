@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhuram Sweets</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF6B6B;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #FF6B6B;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #FF6B6B;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            /* background: linear-gradient 
+             url('https://images.unsplash.com/photo-1627224970127-abac109631de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); */
+             background: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: black;
+            padding: 0 1rem;
+            margin-top: 70px;
+            opacity: 0.9;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #FF6B6B;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Popular Sweets Section */
+        .popular-sweets {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: #FF6B6B;
+            bottom: -10px;
+            left: 20%;
+        }
+        
+        .sweets-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .sweet-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .sweet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .sweet-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .sweet-info {
+            padding: 1.5rem;
+        }
+        
+        .sweet-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sweet-price {
+            font-weight: 600;
+            color: #FF6B6B;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .sweet-desc {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        
+        .add-cart {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .add-cart:hover {
+            background: #ff5252;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 5%;
+            background-color: #f9f9f9;
+        }
+        
+        .testimonial-container {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .testimonial-slide {
+            flex: 0 0 100%;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+            padding: 1rem;
+        }
+        
+        .testimonial-text {
+            flex: 1;
+        }
+        
+        .testimonial-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #333;
+            margin-top: 0.5rem;
+        }
+        
+        .testimonial-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #FF6B6B;
+        }
+        
+        .slider-arrows {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+        
+        .arrow {
+            font-size: 2rem;
+            color: #FF6B6B;
+            cursor: pointer;
+            background: white;
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .contact-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #FF6B6B;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 3rem 5%;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: #FF6B6B;
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .footer-col p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #FF6B6B;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: #FF6B6B;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                background: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.4s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .testimonial-slide {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation">
+        <a href="#" class="logo">Madhuram</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#" aria-current="page">Home</a>
+            <a href="#about">About</a>
+            <a href="#sweets">Our Sweets</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <i class='bx bx-menu'></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Authentic Indian Sweets Delivered to Your Door</h1>
+            <p>Experience the true taste of traditional Indian sweets, made with finest ingredients and authentic recipes passed down through generations.</p>
+            <a href="#sweets" class="btn">Explore Our Sweets</a>
+        </div>
+    </section>
+
+    <!-- Popular Sweets Section -->
+    <section class="popular-sweets" id="sweets">
+        <h2 class="section-title">Our Popular Sweets</h2>
+        <div class="sweets-container">
+            <div class="sweet-card">
+                <img src="gulab jam.jpg" alt="Gulab Jamun" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Gulab Jamun</h3>
+                    <p class="sweet-price">₹250/kg</p>
+                    <p class="sweet-desc">Soft milk solids balls soaked in rose and cardamom flavored sugar syrup.</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="sweet-card">
+                <img src="barfi.jpg" alt="Barfi" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Barfi</h3>
+                    <p class="sweet-price">₹350/kg</p>
+                    <p class="sweet-desc">Dense milk-based sweet with hints of cardamom and topped with silver leaf.</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="sweet-card">
+                <img src="jalebi.jpg" alt="Jalebi" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Jalebi</h3>
+                    <p class="sweet-price">₹200/kg</p>
+                    <p class="sweet-desc">Crispy, juicy pretzel-shaped sweets soaked in saffron syrup.</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="sweet-card">
+                <img src="ladu.jpg" alt="Ladoo" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Ladoo</h3>
+                    <p class="sweet-price">₹300/kg</p>
+                    <p class="sweet-desc">Ball-shaped sweets made from flour, sugar and ghee with a melt-in-mouth texture.</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="sweet-card">
+                <img src="halwa.jpg" alt="Gajar ka Halwa" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Gajar ka Halwa</h3>
+                    <p class="sweet-price">₹280/kg</p>
+                    <p class="sweet-desc">Traditional carrot-based pudding with nuts and cardamom.</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="sweet-card">
+                <img src="rasmalai.jpg" alt="Rasmalai" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Rasmalai</h3>
+                    <p class="sweet-price">₹400/kg</p>
+                    <p class="sweet-desc">Soft cottage cheese dumplings soaked in creamy, saffron-infused milk.</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="sweet-card">
+                <img src="rasmalai.jpg" alt="Rasmalai" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Kheer</h3>
+                    <p class="sweet-price">₹200/kg</p>
+                    <p class="sweet-desc"> it is considered essential to prepare Kheer during festivals and religious ceremonies</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="sweet-card">
+                <img src="rasmalai.jpg" alt="Rasmalai" class="sweet-img">
+                <div class="sweet-info">
+                    <h3 class="sweet-name">Kaju Katri</h3>
+                    <p class="sweet-price">₹300/kg</p>
+                    <p class="sweet-desc">its rich, nutty flavour and melt-in-the-mouth texture are irresistible</p>
+                    <button class="add-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="popular-sweets">
+            <h2 class="section-title">About Madhuram</h2>
+            <div style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                <p>Madhuram Sweets brings the authentic taste of traditional Indian sweets to your doorstep. Our journey began in 1985 with a small shop in the heart of the city, and today we have become one of the most loved sweet shops in the country.</p>
+                <br>
+                <p>At Madhuram, we believe in preserving the authentic taste and quality of our sweets. Every sweet is crafted with love and care using traditional recipes that have been passed down through generations. We use only the finest ingredients to ensure that every bite is as delightful as the first.</p>
+                <br>
+                <p>Our team of expert sweet makers have years of experience in crafting these delicious treats, ensuring that each sweet maintains its authentic taste and quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="section-title">What Clients Say About Us</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-slide active">
+                <div class="testimonial-text">
+                    <p class="testimonial-quote">"The sweets from Madhuram are absolutely divine! The Gulab Jamun reminded me of the ones my grandmother used to make. Will definitely order again for all special occasions."</p>
+                    <p class="testimonial-author">— Priya Sharma</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Priya Sharma" class="testimonial-img">
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-text">
+                    <p class="testimonial-quote">"Best Kaju Katli I've ever had! The texture is perfect and they're not overly sweet. The packaging was also very elegant which made it perfect for gifting during Diwali."</p>
+                    <p class="testimonial-author">— Rahul Verma</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Rahul Verma" class="testimonial-img">
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-text">
+                    <p class="testimonial-quote">"I ordered Rasmalai for my son's birthday and it was a hit! Everyone loved the rich creamy flavor and softness. The delivery was prompt and the sweets were fresh."</p>
+                    <p class="testimonial-author">— Anita Desai</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Anita Desai" class="testimonial-img">
+            </div>
+        </div>
+        <div class="dots">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387194.1389465574!2d-74.30933452329173!3d40.69753986086727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sManhattan%2C%20New%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1623224347127!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="contact-info">
+                <h3 class="contact-heading">Get in Touch</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class='bx bxs-map contact-icon'></i>
+                        <p>7, Indu Chacha Ln, TP 13, Chhani Jakatnaka, Vadodara, Gujarat 390024</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class='bx bxs-phone contact-icon'></i>
+                        <p>+91 9876543210</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class='bx bxs-envelope contact-icon'></i>
+                        <p>madhu123@.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class='bx bxs-time contact-icon'></i>
+                        <p>Mon - Sat: 9AM - 8PM, Sunday: 10AM - 6PM</p>
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" class="social-icon"><i class='bx bxl-facebook'></i></a>
+                    <a href="#" class="social-icon"><i class='bx bxl-whatsapp'></i></a>
+                    <a href="#" class="social-icon"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Madhuram</h3>
+                <p>Delicious traditional Indian sweets made with authentic recipes and premium ingredients. Bringing sweetness to your special moments since 1985.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="#">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#sweets">Our Sweets</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Popular Sweets</h3>
+                <div class="footer-links">
+                    <a href="#">Gulab Jamun</a>
+                    <a href="#">Barfi</a>
+                    <a href="#">Jalebi</a>
+                    <a href="#">Ladoo</a>
+                    <a href="#">Gajar ka Halwa</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Connect With Us</h3>
+                <p>Follow us on social media for updates, offers, and sweet inspiration!</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" class="social-icon"><i class='bx bxl-facebook'></i></a>
+                    <a href="#" class="social-icon"><i class='bx bxl-whatsapp'></i></a>
+                    <a href="#" class="social-icon"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Madhuram Sweets. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            hamburger.innerHTML = isExpanded ? '<i class="bx bx-menu"></i>' : '<i class="bx bx-x"></i>';
+        });
+        
+        // Testimonial Slider
+        const dots = document.querySelectorAll('.dot');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                // Update active dot
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                
+                // Move slides
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.style.display = 'flex';
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Initialize slider
+        dots[0].click();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        hamburger.innerHTML = '<i class="bx bx-menu"></i>';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
